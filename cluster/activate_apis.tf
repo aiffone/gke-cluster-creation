@@ -1,6 +1,6 @@
 module "project-services" {
   source                      = "../modules/project_services"
-  project_id                  = "rmk-demo-344812"
+  project_id                  = "kayprjct01"
   enable_apis                 = true
   disable_services_on_destroy = true
 
