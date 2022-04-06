@@ -26,7 +26,7 @@ locals {
   stg-pods_range_name   = "stg-ip-range-pods-simple-autopilot-public"
   stg-svc_range_name    = "stg-ip-range-svc-simple-autopilot-public"
   subnet_names           = [for subnet_self_link in module.gcp-network.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
-}
+} 
 
 data "google_client_config" "default" {}
 
@@ -38,10 +38,10 @@ provider "kubernetes" {
 
 module "gke" {
   source                          = "../modules/beta-autopilot-public-cluster/"
-  project_id                      = "rmk-demo-344812"
+  project_id                      = var.project
   name                            = "${local.cluster_type}-prod-cluster"
   regional                        = true
-  region                          = "europe-west1"
+  region                          = var.region
   network                         = module.gcp-network.network_name
   subnetwork                      = local.subnet_names[index(module.gcp-network.subnets_names, local.subnet_name)]
   ip_range_pods                   = local.prod-pods_range_name
